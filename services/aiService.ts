@@ -43,7 +43,7 @@ export const getPetRecommendations = async (lifestyle: string): Promise<AIRecomm
     const firstBracket = text.indexOf('[');
     const lastBracket = text.lastIndexOf(']');
 
-    if (firstBracket === -1 || lastBracket === -1) {
+    if (firstBracket === -1 || lastBracket === -1 || firstBracket > lastBracket) {
       throw new Error("Invalid JSON format received");
     }
     
