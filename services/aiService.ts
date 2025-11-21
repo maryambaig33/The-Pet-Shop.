@@ -1,4 +1,4 @@
-import { GoogleGenAI, Type, Schema } from "@google/genai";
+import { GoogleGenAI, Type } from "@google/genai";
 import { AIRecommendation } from "../types";
 
 // Initialize Gemini Client
@@ -8,7 +8,7 @@ export const getPetRecommendations = async (lifestyle: string): Promise<AIRecomm
   try {
     const model = "gemini-2.5-flash";
     
-    const schema: Schema = {
+    const schema = {
       type: Type.ARRAY,
       items: {
         type: Type.OBJECT,
@@ -38,7 +38,10 @@ export const getPetRecommendations = async (lifestyle: string): Promise<AIRecomm
     const text = response.text;
     if (!text) return [];
     
-    return JSON.parse(text) as AIRecommendation[];
+    // Clean up any potential markdown code blocks before parsing
+    const cleanText = text.replace(/```json|```/g, '').trim();
+    
+    return JSON.parse(cleanText) as AIRecommendation[];
   } catch (error) {
     console.error("Error fetching recommendations:", error);
     throw error;
