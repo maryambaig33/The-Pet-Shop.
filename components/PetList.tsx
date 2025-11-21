@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Pet } from '../types';
-import { Filter, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 const MOCK_PETS: Pet[] = [
   { id: 1, name: "Bella", breed: "Golden Retriever", age: "2 years", type: "dog", description: "Friendly and energetic, loves swimming.", tags: ["Active", "Family"], image: "https://picsum.photos/id/237/400/400" },

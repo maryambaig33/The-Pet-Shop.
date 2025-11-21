@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Send, RotateCcw, CheckCircle2 } from 'lucide-react';
+import { Sparkles, RotateCcw, CheckCircle2 } from 'lucide-react';
 import { getPetRecommendations } from '../services/aiService';
 import { AIRecommendation } from '../types';
 

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, User, Stethoscope, Info } from 'lucide-react';
+import { Send, Stethoscope, Info } from 'lucide-react';
 import { getPetCareAdvice } from '../services/aiService';
 
 interface Message {
