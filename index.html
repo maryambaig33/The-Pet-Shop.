@@ -28,6 +28,10 @@
         background: #EA580C; 
       }
     </style>
+    <script>
+      // Polyfill process for browser compatibility
+      window.process = { env: { NODE_ENV: 'production' } };
+    </script>
   <script type="importmap">
 {
   "imports": {
