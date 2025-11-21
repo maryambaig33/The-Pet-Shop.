@@ -16,8 +16,10 @@ export const VetChat: React.FC = () => {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, loading]);
 
   const handleSend = async () => {
     if (!input.trim() || loading) return;

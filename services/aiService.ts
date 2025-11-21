@@ -2,6 +2,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { AIRecommendation } from "../types";
 
 // Initialize Gemini Client
+// The API key is obtained from the environment variable as required.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const getPetRecommendations = async (lifestyle: string): Promise<AIRecommendation[]> => {
@@ -36,12 +37,18 @@ export const getPetRecommendations = async (lifestyle: string): Promise<AIRecomm
     });
 
     const text = response.text;
-    if (!text) return [];
+    if (!text) throw new Error("No content generated");
     
-    // Clean up any potential markdown code blocks before parsing
-    const cleanText = text.replace(/```json|```/g, '').trim();
+    // Robust JSON parsing: Find the array start and end to ignore potential preambles
+    const firstBracket = text.indexOf('[');
+    const lastBracket = text.lastIndexOf(']');
+
+    if (firstBracket === -1 || lastBracket === -1) {
+      throw new Error("Invalid JSON format received");
+    }
     
-    return JSON.parse(cleanText) as AIRecommendation[];
+    const jsonString = text.substring(firstBracket, lastBracket + 1);
+    return JSON.parse(jsonString) as AIRecommendation[];
   } catch (error) {
     console.error("Error fetching recommendations:", error);
     throw error;
