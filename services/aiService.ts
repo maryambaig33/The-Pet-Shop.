@@ -1,12 +1,10 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AIRecommendation } from "../types";
 
-// Initialize Gemini Client
-// The API key is obtained from the environment variable as required.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 export const getPetRecommendations = async (lifestyle: string): Promise<AIRecommendation[]> => {
   try {
+    // Initialize client here to avoid top-level crashes if env vars are not ready during module load
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const model = "gemini-2.5-flash";
     
     const schema = {
@@ -57,6 +55,8 @@ export const getPetRecommendations = async (lifestyle: string): Promise<AIRecomm
 
 export const getPetCareAdvice = async (query: string): Promise<string> => {
   try {
+    // Initialize client here to avoid top-level crashes
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: query,

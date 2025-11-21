@@ -29,10 +29,11 @@
       }
     </style>
     <script>
-      // Polyfill process for browser compatibility
+      // Polyfill process and global for browser compatibility to prevent runtime ReferenceErrors
       window.process = { env: { NODE_ENV: 'production' } };
+      window.global = window;
     </script>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.0",
